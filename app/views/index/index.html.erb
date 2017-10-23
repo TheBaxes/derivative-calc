@@ -1,0 +1,18 @@
+<h1>Otra simple calculadora de derivadas</h1>
+
+<%= form_tag do %>
+<%= label_tag :exp, "Inserte una expresión (simple) a derivar:" %><br>
+<%= text_field_tag :exp, nil, onkeyup: 'myFunction() '%>
+<%= submit_tag %>
+<% end %>
+<p>
+<% if params[:exp] != nil %>
+<h4>Expresión ingresada:</h4>
+<%= '$$f(x)=' + params[:exp] + '$$' %>
+<% end %>
+<% if @result != nil %>
+<h4>Resultado:</h4>
+<%= '$$' + @result + '$$' %>
+<% end %>
+</p>
+</script>
