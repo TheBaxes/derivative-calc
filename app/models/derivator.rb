@@ -28,15 +28,18 @@ class Derivator
     op = []
     @tokens.each do |t, i|
       if (t =~ /[[:digit:]]+[[:alpha:]]+/) != nil
-        output << Variable.new(t.to_i)
+        output << Number.new(t.to_i)
+        output << Variable.new
+        op << '*'
       elsif (t =~ /[[:alpha:]][[:digit:]]+/) != nil
-        output << Variable.new(t.tr('x','').to_i)
+        output << Variable.new
+        output << Number.new(t.tr('x','').to_i)
+        op << '*'
       elsif (t =~ /[[:digit:]]+/) != nil
         output << (Number.new t.to_i)
       elsif t == "x"
-        output << Variable.new(1)
+        output << Variable.new
       elsif (t =~ /[\+\-\*\/\^]/) != nil
-        puts ''
         while !op.empty? && @priority_table_symbols[:"#{op.last}"] >= @priority_table_symbols[:"#{t}"]
           exp2 = output.pop
           exp1 = output.pop

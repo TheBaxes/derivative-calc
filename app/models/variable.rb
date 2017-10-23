@@ -1,16 +1,14 @@
 require_relative 'ast'
 
 class Variable < AST
-  def initialize(number)
-    @number = number
+  def initialize()
   end
   
   def derivate(priority_table)
-    return @number.to_s
+    return '1'
   end
   
   def literal(priority_table)
-    return 'x' if @number == 1
-    return @number.to_s + 'x'
+    return 'x'
   end
 end
