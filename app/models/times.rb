@@ -16,17 +16,8 @@ class Times < AST
     exp1l = @expression1.literal(priority_table)
     exp2 = @expression2.derivate(priority_table)
     exp2l = @expression2.literal(priority_table)
-    if priority_table[:"#{@expression2.class}"] < priority_table[:Times]
-      result = exp1l + '*(' + exp2 + ')'
-    else
-      result = exp1l + '*' + exp2
-    end
-    
-    if priority_table[:"#{@expression1.class}"] < priority_table[:Times]
-      result += '+' + exp2l + '*(' + exp1 + ')'
-    else
-      result += '+' + exp2l + '*' + exp1
-    end
+      result = '(' + exp1l + ')*(' + exp2 + ')'
+      result += '+(' + exp2l + ')*(' + exp1 + ')'
     
     result
   end

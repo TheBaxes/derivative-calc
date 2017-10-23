@@ -2,7 +2,7 @@ class Derivator
   
   
   def initialize(text)
-    @tokens = text.scan(/[[:digit:]]+[[:alpha:]]|[[:alpha:]]|[[:digit:]]+|[\+\-\*\/\^\(\)]/)
+    @tokens = text.scan(/[[:digit:]]+[[:alpha:]]|[[:alpha:]][[:digit:]]+|[[:alpha:]]|[[:digit:]]+|[\+\-\*\/\^\(\)]/)
     @priority_table_symbols = {
     :'+' => 2,
     :'-' => 2,
@@ -27,8 +27,10 @@ class Derivator
     output = []
     op = []
     @tokens.each do |t, i|
-      if (t =~ /[[:digit:]]+[[:alpha:]]/) != nil
+      if (t =~ /[[:digit:]]+[[:alpha:]]+/) != nil
         output << Variable.new(t.to_i)
+      elsif (t =~ /[[:alpha:]][[:digit:]]+/) != nil
+        output << Variable.new(t.tr('x','').to_i)
       elsif (t =~ /[[:digit:]]+/) != nil
         output << (Number.new t.to_i)
       elsif t == "x"
