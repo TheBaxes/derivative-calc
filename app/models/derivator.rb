@@ -36,12 +36,10 @@ class Derivator
       elsif t == "x"
         output << Variable.new(1)
       elsif (t =~ /[\+\-\*\/\^]/) != nil
-        op.each {|k| puts k}
         puts ''
         while !op.empty? && @priority_table_symbols[:"#{op.last}"] >= @priority_table_symbols[:"#{t}"]
           exp2 = output.pop
           exp1 = output.pop
-          puts t + ' -> ' + op.last
           operation = case op.pop
           when '+'
             Add.new exp1, exp2
