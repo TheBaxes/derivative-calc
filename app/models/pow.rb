@@ -12,6 +12,6 @@ class Pow < AST
   end
   
   def literal(priority_table)
-    
+    '(' + @expression1.literal(priority_table) + ')^' + @expression2.literal(priority_table)
   end
 end
