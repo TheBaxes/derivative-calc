@@ -34,4 +34,21 @@ class Times < AST
     
     return @expression1.literal(priority_table) + '*' + @expression2.literal(priority_table)
   end
+  
+  def simplify(priority_table)
+    exp1 = @expression1.simplify(priority_table)
+    exp2 = @expression2.simplify(priority_table)
+    if exp1.class == Number && exp2.class == Number
+      return Number.new(exp1.number*exp2.number)
+    end
+    if exp1.class == Number
+      return exp1 if exp1.number == 0
+      return exp2 if exp1.number == 1
+    end
+    if exp2.class == Number
+      return exp2 if exp2.number == 0
+      return exp1 if exp2.number == 1
+    end
+    Times.new(exp1, exp2)
+  end
 end

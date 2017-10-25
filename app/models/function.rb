@@ -6,7 +6,14 @@ class Function < AST
   end
   
   def derivate(priority_table)
-    exp = @expression.derivate(priority_table)
-    "f'(x) = " + exp
+    @expression.derivate(priority_table)
+  end
+  
+  def literal(priority_table)
+    @expression.literal(priority_table)
+  end
+  
+  def simplify(priority_table)
+    @expression.simplify(priority_table)
   end
 end

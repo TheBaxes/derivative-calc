@@ -10,7 +10,9 @@ class IndexController < ApplicationController
         :Div => 3,
         :Pow => 4
       }
+      @original = Derivator.new(params[:exp]).parse.simplify(priority_table).literal(priority_table)
       @result = Derivator.new(params[:exp]).parse.derivate(priority_table)
+      #@result_simplified = Derivator.new(@result).parse.simplify(priority_table).literal(priority_table)
     end
   end
 end

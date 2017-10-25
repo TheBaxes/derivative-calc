@@ -1,6 +1,8 @@
 require_relative 'ast'
 
 class Number < AST
+  attr_reader :number
+  
   def initialize(number)
     @number = number
   end
@@ -11,5 +13,9 @@ class Number < AST
   
   def literal(priority_table)
     return @number.to_s
+  end
+  
+  def simplify(priority_table)
+    return self
   end
 end

@@ -11,4 +11,8 @@ class Variable < AST
   def literal(priority_table)
     return 'x'
   end
+  
+  def simplify(priority_table)
+    return self
+  end
 end

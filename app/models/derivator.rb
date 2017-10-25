@@ -1,5 +1,5 @@
 class Derivator
-  
+  attr_reader :priority_table
   
   def initialize(text)
     @tokens = text.scan(/[[:digit:]]+[[:alpha:]]|[[:alpha:]][[:digit:]]+|[[:alpha:]]|[[:digit:]]+|[\+\-\*\/\^\(\)]/)
@@ -26,7 +26,8 @@ class Derivator
   def parse()
     output = []
     op = []
-    @tokens.each do |t, i|
+    past_token = nil
+    @tokens.each do |t|
       if (t =~ /[[:digit:]]+[[:alpha:]]+/) != nil
         output << Number.new(t.to_i)
         output << Variable.new
@@ -80,8 +81,8 @@ class Derivator
         end
         op.pop
       end
+      past_token = t
     end
-    op.each {|k| puts k}
     while !op.empty?
       exp2 = output.pop
       exp1 = output.pop
