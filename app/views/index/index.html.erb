@@ -3,7 +3,7 @@
 <%= form_tag do %>
 <%= label_tag :exp, "Inserte una expresión (simple) a derivar:" %><br>
 <%= text_field_tag :exp, nil, onkeyup: 'myFunction() '%>
-<%= submit_tag %>
+<%= submit_tag ("Derivar") %>
 <% end %>
 <p>
 <% if params[:exp] != nil %>

@@ -1,6 +1,8 @@
 require_relative 'ast'
 
 class Times < AST
+  attr_reader :expression1, :expression2
+  
   def initialize(expression1, expression2)
     @expression1 = expression1
     @expression2 = expression2
@@ -30,12 +32,6 @@ class Times < AST
   end
   
   def latex(priority_table)
-    if @expression1.checkNumberWithVariable && @expression2.class == Number
-      return @expression2.latex(priority_table) + @expression1.latex(priority_table)
-    end
-    if @expression1.class == Number && @expression2.checkNumberWithVariable
-      return @expression1.latex(priority_table) + @expression2.latex(priority_table)
-    end
     if priority_table[:"#{@expression1.class}"] < priority_table[:Times]
       result1 = '(' + @expression1.latex(priority_table) + ')'
     else
@@ -47,6 +43,14 @@ class Times < AST
       result2 = @expression2.latex(priority_table)
     end
     
+    if @expression1.checkNumberWithVariable 
+      return result2 + result1 if @expression2.class == Number
+      return result1 + result2
+    end
+    if @expression2.checkNumberWithVariable
+      return result1 + result2 if @expression1.class == Number
+      return result2 + result1
+    end
     return result1 + '*' + result2
   end
   
@@ -66,13 +70,23 @@ class Times < AST
       e = exp1.getExponent + exp2.getExponent
       return Times.new(Number.new(c), Pow.new(Variable.new, Number.new(e))).simplify(priority_table)
     end
-    if exp1.checkNumberWithVariable && exp2.class == Number
+    if exp1.checkNumberWithVariable
       return Times.new(Number.new(exp2.number*exp1.getNumberOfVariable),\
-      Pow.new(Variable.new, Number.new(exp1.getExponent)).simplify(priority_table))
+      Pow.new(Variable.new, Number.new(exp1.getExponent)).simplify(priority_table))\
+      if exp2.class == Number
+      
+      if exp2.class == Add || exp2.class == Sub
+        return Add.new(Times.new(exp1, exp2.expression1), Times.new(exp1, exp2.expression2)).simplify(priority_table)
+      end
     end
-    if exp1.class == Number && exp2.checkNumberWithVariable
+    if exp2.checkNumberWithVariable
       return Times.new(Number.new(exp1.number*exp2.getNumberOfVariable),\
-      Pow.new(Variable.new, Number.new(exp2.getExponent)).simplify(priority_table))
+      Pow.new(Variable.new, Number.new(exp2.getExponent)).simplify(priority_table))\
+      if exp1.class == Number
+        
+      if exp1.class == Add || exp1.class == Sub
+        return Add.new(Times.new(exp1.expression1, exp2), Times.new(exp1.expression2, exp2)).simplify(priority_table)
+      end
     end
     if exp1.class == Number && exp2.class == Number
       return Number.new(exp1.number*exp2.number)

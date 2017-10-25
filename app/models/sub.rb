@@ -1,6 +1,8 @@
 require_relative 'ast'
 
 class Sub < AST
+  attr_reader :expression1, :expression2
+  
   def initialize(expression1, expression2)
     @expression1 = expression1
     @expression2 = expression2
