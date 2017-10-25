@@ -8,13 +8,15 @@
 <p>
 <% if params[:exp] != nil %>
 <h4>Expresión ingresada:</h4>
+<%= '$$f(x)=' + params[:exp] + '$$' %>
+<h4>Expresión original simplificada:</h4>
 <%= '$$f(x)=' + @original + '$$' %>
 <% end %>
 <% if @result != nil %>
 <h4>Resultado:</h4>
 <%= "$$ f'(x)=" + @result + '$$' %>
 <h4>Resultado simplificado:</h4>
-<%# "$$ f'(x)=" + @result_simplified + '$$' %>
+<%= "$$ f'(x)=" + @result_simplified + '$$' %>
 <% end %>
 </p>
 </script>

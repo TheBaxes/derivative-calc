@@ -15,6 +15,10 @@ class Number < AST
     return @number.to_s
   end
   
+  def latex(priority_table)
+    return @number.to_s
+  end
+  
   def simplify(priority_table)
     return self
   end
