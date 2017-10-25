@@ -11,4 +11,28 @@ class Variable < AST
   def literal(priority_table)
     return 'x'
   end
+  
+  def latex(priority_table)
+    return 'x'
+  end
+  
+  def simplify(priority_table)
+    return self
+  end
+  
+  def checkNumberWithVariable
+    true
+  end
+  
+  def getNumberOfVariable()
+    1
+  end
+  
+  def checkVariable
+    true
+  end
+  
+  def getExponent
+    1
+  end
 end
