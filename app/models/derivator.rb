@@ -32,13 +32,13 @@ class Derivator
         raise "Parse exception" unless (t =~ /[[:digit:]]+/) != nil
       end
       if (t =~ /[[:digit:]]+/) != nil
-        if (past_token =~ /[[:alpha:]]/) != nil
+        if (past_token =~ /[[:alpha:]|\)]/) != nil
           output, op = checkOpStack(output, op, '*')
           op << '*'
         end
           output << (Number.new t.to_i)
       elsif t == "x"
-        if (past_token =~ /[[:digit:]]+/) != nil
+        if (past_token =~ /[[:digit:]|\)]+/) != nil
           output, op = checkOpStack(output, op, '*')
           op << '*'
         end
