@@ -38,6 +38,7 @@ class Pow < AST
       return Number.new(exp1.number ** exp2.number)
     end
     return exp1 if exp2.number == 1
+    return Number.new(1) if exp2.number == 0
     Pow.new(exp1, exp2)
   end
   
