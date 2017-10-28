@@ -1,6 +1,6 @@
 # Simple derivative calculator
 
-A simple derivative calculator made to demonstrate the interpreter design pattern. 
+A simple derivative calculator made in Ruby on Rails to demonstrate the interpreter design pattern. 
 
 ## Getting started
 
